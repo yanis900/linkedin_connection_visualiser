@@ -29,16 +29,18 @@ To use this application, you must first download your LinkedIn connections data:
 Follow these steps to set up the project and run the application:
 
 1. **Clone the Repository**
-
+```
 git clone <repository-url>
+```
+```
 cd <repository-folder>
-
+```
 2. **Install Dependencies**
 
 Install the required Python packages using pip:
-
+```
 pip install -r requirements.txt
-
+```
 3. **Prepare Data**
 
 Place your downloaded `connections.csv` file in the root directory of the cloned repository.
@@ -46,9 +48,9 @@ Place your downloaded `connections.csv` file in the root directory of the cloned
 4. **Run the Application**
 
 Start the application by running:
-
+```
 python3 main.py
-
+```
 ---
 
 ## Notes
