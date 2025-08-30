@@ -30,10 +30,7 @@ Follow these steps to set up the project and run the application:
 
 1. **Clone the Repository**
 ```
-git clone <repository-url>
-```
-```
-cd <repository-folder>
+git clone https://github.com/yanis900/linkedin_connection_visualiser.git
 ```
 2. **Install Dependencies**
 
