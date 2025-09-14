@@ -7,7 +7,7 @@ from IPython.display import display, HTML
 connections_data = pd.read_csv("Connections.csv", skiprows=2)
 formatted_connections_data = (
     connections_data.clean_names()
-    .drop(columns=["last_name", "email_address"])
+    .drop(columns=["email_address"])
     .dropna(subset=["company", "position"])
 )
 formatted_connections_data["connected_on"] = pd.to_datetime(
@@ -21,8 +21,7 @@ recommendations_data = recommendations_data.clean_names().dropna(
 
 messages_data = pd.read_csv('Messages.csv')
 messages_data = messages_data.clean_names()
-message_senders_full = messages_data['from'].dropna().unique()
-message_senders = set(name.split()[0] for name in message_senders_full)
+message_senders = messages_data['from'].dropna().unique()
 
 nt = Network(notebook=True)
 g = nx.Graph()
@@ -45,20 +44,20 @@ for company in companies:
         shape="circularImage",
         image=logo_url,
     )
-    g.add_edge("You", company, color="grey")
+    g.add_edge("You", company, color="lightgray")
 
     persons = formatted_connections_data[formatted_connections_data["company"] == company]
     for _, person in persons.iterrows():
-        person_name = person["first_name"]
+        person_name = f"{person['first_name']} {person['last_name']}".strip()
         position = person["position"]
         title = f"{person_name} - {position}"
-        color = "red" if person_name in message_senders else "#lightblue"
+        color = "red" if person_name in message_senders else "lightblue"
         g.add_node(person_name, size=5, color=color, title=title)
-        g.add_edge(company, person_name, color="lightblue")
+        g.add_edge(company, person_name, color="lightgray")
 
 for idx, rec in recommendations_data.iterrows():
-    person_name = rec["first_name"]
-    rec_label = f"{rec.get('job_title', 'Recommendation')} - {rec['status']}"
+    person_name = f"{rec['first_name']} {rec.get('last_name', '').strip()}".strip()
+    rec_label = f"{rec.get('job_title', 'Recommendation')}"
     rec_text = rec["text"]
     rec_url = rec.get("url", "")
 
@@ -74,11 +73,11 @@ for idx, rec in recommendations_data.iterrows():
         label=rec_label,
         title=title_html,
         size=8,
-        color="#f39c12",
+        color="lightgreen",
         shape="box",
     )
     if g.has_node(person_name):
-        g.add_edge(person_name, rec_node_id, color="orange")
+        g.add_edge(person_name, rec_node_id, color="lightgray")
 
 nt.from_nx(g)
 nt.show("nodes.html")
