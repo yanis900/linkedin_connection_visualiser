@@ -1,2 +1,7 @@
 venv/
+lib/
 Connections.csv
+Recommendations_Received.csv
+messages.csv
+localhost.pem
+localhost-key.pem

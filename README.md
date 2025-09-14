@@ -42,12 +42,44 @@ pip install -r requirements.txt
 
 Place your downloaded `connections.csv` file in the root directory of the cloned repository.
 
-4. **Run the Application**
 
 Start the application by running:
 ```
 python3 main.py
 ```
+
+---
+
+## Viewing the Visualization with Company Logos/Icons
+
+**Important:** To see company logos/icons in your browser, you must serve the visualization over HTTPS. Most browsers block secure (HTTPS) images from being loaded on an insecure (HTTP) site. If you open the HTML file directly or use a regular HTTP server, the logos may not appear.
+
+To set up a local HTTPS server, follow these steps:
+
+1. **Install mkcert** (for generating a local SSL certificate):
+	```
+	brew install mkcert
+	mkcert localhost
+	```
+	This will generate `localhost.pem` and `localhost-key.pem` in your directory.
+
+2. **Install http-server** (a simple static server with HTTPS support):
+	```
+	npm install -g http-server
+	```
+
+3. **Start the HTTPS server:**
+	```
+	http-server -S -C localhost.pem -K localhost-key.pem -p 8000
+	```
+
+4. **Open your browser and visit:**
+	```
+	https://localhost:8000/nodes.html
+	```
+
+You should now see all company logos/icons displayed correctly in your network visualization.
+
 ---
 
 ## Notes
