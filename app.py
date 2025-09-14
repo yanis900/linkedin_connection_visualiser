@@ -23,7 +23,7 @@ messages_data = pd.read_csv('Messages.csv')
 messages_data = messages_data.clean_names()
 message_senders = messages_data['from'].dropna().unique()
 
-nt = Network(notebook=True)
+nt = Network(notebook=True, cdn_resources='remote')
 g = nx.Graph()
 
 default_icon = {"face": "FontAwesome", "code": "\uf0c0", "size": 50, "color": "blue"}
@@ -55,11 +55,11 @@ for company in companies:
         g.add_node(person_name, size=5, color=color, title=title)
         g.add_edge(company, person_name, color="lightgray")
 
-for idx, rec in recommendations_data.iterrows():
-    person_name = f"{rec['first_name']} {rec.get('last_name', '').strip()}".strip()
-    rec_label = f"{rec.get('job_title', 'Recommendation')}"
-    rec_text = rec["text"]
-    rec_url = rec.get("url", "")
+for idx, recommendation in recommendations_data.iterrows():
+    person_name = f"{recommendation['first_name']} {recommendation.get('last_name', '').strip()}".strip()
+    rec_label = f"{recommendation.get('job_title', 'Recommendation')}"
+    rec_text = recommendation["text"]
+    rec_url = recommendation.get("url", "")
 
     rec_node_id = f"{person_name}_rec_{idx}"
     title_html = (
